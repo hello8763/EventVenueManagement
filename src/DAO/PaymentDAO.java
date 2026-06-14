@@ -9,4 +9,6 @@ public interface PaymentDAO {
     boolean deletePayment(int id);
     Payment searchPaymentById(int id);
     List<Payment> getAllPayments();
+    // NEW: Fetch only payments belonging to a specific customer
+    List<Payment> getPaymentsByUserId(int userId);
 }

@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAOImp implements UserDAO {
 
@@ -82,5 +84,33 @@ public class UserDAOImp implements UserDAO {
                 try { conn.setAutoCommit(true); conn.close(); } catch (SQLException e) { e.printStackTrace(); }
             }
         }
+    }
+
+    // Add this implementation at the bottom of the class:
+    @Override
+    public List<Object[]> getAllUsersWithProfiles() {
+        List<Object[]> list = new ArrayList<>();
+        // JOIN the User and Profile tables to get the full picture
+        String sql = "SELECT u.userId, u.email, p.fullName, p.phoneNumber, p.role, p.address " +
+                     "FROM User u JOIN Profile p ON u.userId = p.userId";
+                     
+        try (Connection con = mysqlDBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+             
+            while (rs.next()) {
+                list.add(new Object[]{
+                    rs.getInt("userId"),
+                    rs.getString("fullName"),
+                    rs.getString("email"),
+                    rs.getString("phoneNumber"),
+                    rs.getString("role"),
+                    rs.getString("address")
+                });
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }

@@ -30,6 +30,11 @@ public class Dashboard extends JFrame {
     new EventTypeController(page);
     page.setVisible(true);
 }));
+add(createButton("View System Users", e -> {
+                UserListPage page = new UserListPage();
+                new UserListController(page);
+                page.setVisible(true);
+            }));
        }  else if (role.equals("Customer")) {
     add(createButton("Browse Venues", e -> {
         CustomerVenueBrowsePage page = new CustomerVenueBrowsePage();

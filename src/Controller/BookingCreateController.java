@@ -99,49 +99,65 @@ private void calculateTotal() {
         JOptionPane.showMessageDialog(view, "Calculation error: " + ex.getMessage());
     }
 }
+// ... (Keep the rest of BookingCreateController the same, just update this method) ...
 
-private void confirmBooking() {
-    try {
-        // If total field is empty, calculate first
-        if (view.txtTotalPrice.getText().trim().isEmpty()) {
-            calculateTotal();
+    private void confirmBooking() {
+        try {
             if (view.txtTotalPrice.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(view, "Please calculate total before confirming");
-                return;
+                calculateTotal();
+                if (view.txtTotalPrice.getText().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(view, "Please calculate total before confirming");
+                    return;
+                }
             }
-        }
 
-        SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat timeFmt = new SimpleDateFormat("HH:mm:ss");
+            SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat timeFmt = new SimpleDateFormat("HH:mm:ss");
 
-        Booking booking = new Booking();
-        booking.setUserId(UserSession.getInstance().getUserId());
-        booking.setVenueId(view.getVenueId());
+            String requestedDate = dateFmt.format((Date) view.spinnerDate.getValue());
+            String requestedStart = timeFmt.format((Date) view.spinnerStart.getValue());
+            String requestedEnd = timeFmt.format((Date) view.spinnerEnd.getValue());
+            int requestedVenueId = view.getVenueId();
 
-        EventType et = (EventType) view.cmbEventType.getSelectedItem();
-        booking.setTypeId(et.getTypeId());
-
-        booking.setEventDate(dateFmt.format((Date) view.spinnerDate.getValue()));
-        booking.setStartTime(timeFmt.format((Date) view.spinnerStart.getValue()));
-        booking.setEndTime(timeFmt.format((Date) view.spinnerEnd.getValue()));
-        booking.setTotalPrice(Double.parseDouble(view.txtTotalPrice.getText()));
-        booking.setStatus("Confirmed");
-
-        int bookingId = bookingDAO.addBooking(booking);
-        if (bookingId > 0) {
-            for (Service s : view.listServices.getSelectedValuesList()) {
-                BookingService bs = new BookingService(bookingId, s.getServiceId(), 1,
-                        s.getPricePerUnit(), s.getPricePerUnit());
-                bookingServicesDAO.addBookingService(bs);
+            // --- NEW: THE AVAILABILITY CHECK ---
+            if (!bookingDAO.isVenueAvailable(requestedVenueId, requestedDate, requestedStart, requestedEnd)) {
+                JOptionPane.showMessageDialog(view, 
+                    "OVERLAP DETECTED!\nThis venue is already booked during this timeframe.\nPlease select a different time or date.", 
+                    "Venue Unavailable", 
+                    JOptionPane.ERROR_MESSAGE);
+                return; // Stop the booking process immediately
             }
-            JOptionPane.showMessageDialog(view, "Booking created! ID: " + bookingId);
-            view.dispose();
-        } else {
-            JOptionPane.showMessageDialog(view, "Failed to create booking.");
+            // -----------------------------------
+
+            Booking booking = new Booking();
+            booking.setUserId(UserSession.getInstance().getUserId());
+            booking.setVenueId(requestedVenueId);
+
+            EventType et = (EventType) view.cmbEventType.getSelectedItem();
+            booking.setTypeId(et.getTypeId());
+
+            booking.setEventDate(requestedDate);
+            booking.setStartTime(requestedStart);
+            booking.setEndTime(requestedEnd);
+            booking.setTotalPrice(Double.parseDouble(view.txtTotalPrice.getText()));
+            booking.setStatus("Confirmed");
+
+            int bookingId = bookingDAO.addBooking(booking);
+            if (bookingId > 0) {
+                for (Service s : view.listServices.getSelectedValuesList()) {
+                    BookingService bs = new BookingService(bookingId, s.getServiceId(), 1,
+                            s.getPricePerUnit(), s.getPricePerUnit());
+                    bookingServicesDAO.addBookingService(bs);
+                }
+                JOptionPane.showMessageDialog(view, "Booking created successfully! ID: " + bookingId);
+                view.dispose();
+            } else {
+                JOptionPane.showMessageDialog(view, "Failed to create booking.");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(view, "Error: " + ex.getMessage());
         }
-    } catch (Exception ex) {
-        ex.printStackTrace();
-        JOptionPane.showMessageDialog(view, "Error: " + ex.getMessage());
     }
-}
+
 }

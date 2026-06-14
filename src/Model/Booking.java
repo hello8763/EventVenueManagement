@@ -54,4 +54,8 @@ public class Booking {
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+@Override
+    public String toString() {
+        return "ID: " + booking_id + " | Date: " + event_date + " | Total: $" + total_price;
+    }
 }

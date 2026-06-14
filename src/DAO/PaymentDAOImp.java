@@ -104,4 +104,29 @@ public class PaymentDAOImp implements PaymentDAO {
         }
         return list;
     }
+
+    // NEW: Joins payments and bookings to fetch only this specific user's history
+    @Override
+    public List<Payment> getPaymentsByUserId(int userId) {
+        List<Payment> list = new ArrayList<>();
+        String sql = "SELECT p.* FROM payments p JOIN bookings b ON p.booking_id = b.booking_id WHERE b.user_id = ?";
+        try (Connection con = mysqlDBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Payment payment = new Payment();
+                payment.setPaymentId(rs.getInt("payment_id"));
+                payment.setBookingId(rs.getInt("booking_id"));
+                payment.setAmount(rs.getDouble("amount"));
+                payment.setPaymentMethod(rs.getString("payment_method"));
+                payment.setTransactionRef(rs.getString("transaction_ref"));
+                payment.setPaymentStatus(rs.getString("payment_status"));
+                list.add(payment);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

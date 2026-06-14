@@ -142,4 +142,29 @@ public List<Booking> getBookingsByUserId(int userId) {
         }
         return list;
     }
+    // ... (Keep all your existing methods in BookingDAOImp) ...
+
+    @Override
+    public boolean isVenueAvailable(int venueId, String date, String startTime, String endTime) {
+        // We only care if overlapping bookings are Confirmed or Paid. (Cancelled ones don't block the venue).
+        String sql = "SELECT COUNT(*) FROM bookings WHERE venue_id = ? AND event_date = ? AND status IN ('Confirmed', 'Paid') AND start_time < ? AND end_time > ?";
+        try (Connection con = mysqlDBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            
+            ps.setInt(1, venueId);
+            ps.setString(2, date);
+            ps.setString(3, endTime);   // New End Time
+            ps.setString(4, startTime); // New Start Time
+            
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                // If count is 0, there are no overlaps. The venue is available!
+                return rs.getInt(1) == 0; 
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false; // Fail safe: if database errors, assume unavailable
+    }
+} // End of class
 }
