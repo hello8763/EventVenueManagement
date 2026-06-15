@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<HBox prefWidth="950" prefHeight="600" spacing="20" styleClass="main-container" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FXServiceController">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <VBox prefWidth="320" spacing="15" styleClass="form-panel">
+        <Label text="Service Controls" styleClass="header-label"/>
+        <Separator/>
+        
+        <VBox spacing="5">
+            <Label text="Service ID (For Search/Update/Delete)"/>
+            <HBox spacing="10">
+                <TextField fx:id="txtServiceId" promptText="ID" HBox.hgrow="ALWAYS"/>
+                <Button text="Search" onAction="#handleSearch" styleClass="secondary-button"/>
+            </HBox>
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Service Name"/>
+            <TextField fx:id="txtServiceName" promptText="E.g., Catering, Sound System"/>
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Description"/>
+            <TextArea fx:id="txtDescription" promptText="Enter service coverage details..." prefHeight="100" wrapText="true"/>
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Price Per Unit ($)"/>
+            <TextField fx:id="txtPricePerUnit" promptText="E.g., 250.00"/>
+        </VBox>
+
+        <CheckBox fx:id="chkStatus" text="Service Active &amp; Available" styleClass="custom-checkbox"/>
+
+        <Region VBox.vgrow="ALWAYS"/>
+
+        <GridPane hgap="10" vgap="10">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="50"/>
+                <ColumnConstraints percentWidth="50"/>
+            </columnConstraints>
+            <Button text="Add New" onAction="#handleAdd" maxWidth="Infinity" styleClass="primary-button" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <Button text="Update" onAction="#handleUpdate" maxWidth="Infinity" styleClass="action-button-blue" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+            <Button text="Delete" onAction="#handleDelete" maxWidth="Infinity" styleClass="action-button-red" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+        </GridPane>
+    </VBox>
+
+    <VBox HBox.hgrow="ALWAYS" spacing="10">
+        <Label text="System Service Catalog" styleClass="section-title"/>
+        <TableView fx:id="tblServices" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
+                <TableColumn fx:id="colName" text="Service Name" prefWidth="180"/>
+                <TableColumn fx:id="colDescription" text="Description" prefWidth="250"/>
+                <TableColumn fx:id="colPrice" text="Price / Unit" prefWidth="100"/>
+                <TableColumn fx:id="colStatus" text="Active Status" prefWidth="100"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+    </VBox>
+</HBox>

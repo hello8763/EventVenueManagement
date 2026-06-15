@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER_LEFT" spacing="18.0" style="-fx-background-color: #0f172a; -fx-pref-width: 420; -fx-pref-height: 480;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FXLoginController">
+   <padding>
+      <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+   </padding>
+   <children>
+      <VBox spacing="4.0">
+         <children>
+            <Label text="Welcome Back" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Label>
+            <Label text="Sign in to your venue account portal" textFill="#94a3b8">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </VBox>
+      <VBox spacing="6.0">
+         <children>
+            <Label text="Email Address" textFill="#cbd5e1">
+               <font>
+                  <Font name="System Medium" size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtEmail" promptText="name@company.com" style="-fx-background-color: #1e293b; -fx-text-fill: white; -fx-border-color: #334155; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 10;" />
+         </children>
+      </VBox>
+      <VBox spacing="6.0">
+         <children>
+            <Label text="Password" textFill="#cbd5e1">
+               <font>
+                  <Font name="System Medium" size="13.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="txtPassword" promptText="••••••••" style="-fx-background-color: #1e293b; -fx-text-fill: white; -fx-border-color: #334155; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 10;" />
+         </children>
+      </VBox>
+      <VBox spacing="12.0">
+         <children>
+            <Button fx:id="btnLogin" maxWidth="1.1797693134862315E308" mnemonicParsing="false" onAction="#handleLogin" style="-fx-background-color: #2563eb; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 12; -fx-background-radius: 6; -fx-cursor: hand;" text="Sign In to System">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <HBox alignment="CENTER" spacing="6.0">
+               <children>
+                  <Label text="New to the system?" textFill="#94a3b8" />
+                  <Button fx:id="btnGoToRegister" mnemonicParsing="false" onAction="#handleGoToRegister" style="-fx-background-color: transparent; -fx-text-fill: #3b82f6; -fx-padding: 0; -fx-cursor: hand; -fx-font-weight: bold;" text="Create Account" />
+               </children>
+               <padding>
+                  <Insets top="4.0" />
+               </padding>
+            </HBox>
+         </children>
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </VBox>
+   </children>
+</VBox>

@@ -4,37 +4,75 @@
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.Insets?>
 
-<HBox prefWidth="850" prefHeight="550" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FXDashboardController">
+<HBox prefWidth="1100" prefHeight="750" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FXDashboardController">
     
-    <VBox prefWidth="250" styleClass="sidebar-container" spacing="25" alignment="TOP_CENTER">
+    <VBox prefWidth="280" styleClass="sidebar-container" spacing="30" alignment="TOP_CENTER">
         <padding>
-            <Insets top="40" right="20" bottom="20" left="20"/>
+            <Insets top="40" right="24" bottom="24" left="24"/>
         </padding>
         
-        <VBox alignment="CENTER" spacing="8" styleClass="profile-box">
-            <Label text="Welcome back," styleClass="sidebar-subtitle"/>
-            <Label fx:id="lblUserEmail" text="user@email.com" wrapText="true" alignment="CENTER" styleClass="sidebar-title"/>
-            <Label fx:id="lblUserRole" text="[ROLE]" styleClass="role-badge"/>
+        <VBox alignment="CENTER" spacing="4">
+            <Label text="ENTERPRISE CORE" styleClass="sidebar-brand-title"/>
+            <Label text="Venue &amp; Booking Matrix" styleClass="sidebar-brand-subtitle"/>
+        </VBox>
+        
+        <Separator opacity="0.15"/>
+        
+        <VBox alignment="CENTER" spacing="12" styleClass="profile-box">
+            <Label text="Authorized Identity" styleClass="sidebar-subtitle"/>
+            <Label fx:id="lblUserEmail" text="admin@system.com" wrapText="true" alignment="CENTER" styleClass="sidebar-title"/>
+            <Label fx:id="lblUserRole" text="ADMINISTRATOR" styleClass="role-badge"/>
         </VBox>
         
         <Region VBox.vgrow="ALWAYS"/>
         
-        <Button text="Sign Out" onAction="#handleLogout" maxWidth="Infinity" styleClass="logout-button"/>
+        <Button text="Terminate Session" onAction="#handleLogout" maxWidth="Infinity" styleClass="logout-button"/>
     </VBox>
 
-    <VBox HBox.hgrow="ALWAYS" spacing="20" styleClass="workspace-container">
+    <VBox HBox.hgrow="ALWAYS" spacing="25" styleClass="workspace-container">
         <padding>
-            <Insets top="30" right="30" bottom="30" left="30"/>
+            <Insets top="35" right="35" bottom="35" left="35"/>
         </padding>
         
-        <Label text="System Operations Dashboard" styleClass="workspace-header"/>
-        <Separator/>
+        <VBox spacing="4">
+            <Label text="System Operations Dashboard" styleClass="workspace-header"/>
+            <Label text="Real-time control matrix and analytics tracking" styleClass="workspace-subheader"/>
+        </VBox>
         
-        <GridPane fx:id="gridOperations" hgap="20" vgap="20" VBox.vgrow="ALWAYS">
-            <columnConstraints>
-                <ColumnConstraints percentWidth="50" hgrow="SOMETIMES"/>
-                <ColumnConstraints percentWidth="50" hgrow="SOMETIMES"/>
-            </columnConstraints>
-            </GridPane>
+        <VBox fx:id="analyticsContainer" spacing="12">
+            <Label text="Live Telemetry Counters" styleClass="section-indicator-title"/>
+            <HBox spacing="15" alignment="CENTER">
+                <VBox styleClass="telemetry-card" HBox.hgrow="ALWAYS">
+                    <Label text="ACTIVE VENUES" styleClass="telemetry-label"/>
+                    <Label fx:id="lblStatVenues" text="..." styleClass="telemetry-value"/>
+                </VBox>
+                <VBox styleClass="telemetry-card" HBox.hgrow="ALWAYS">
+                    <Label text="TOTAL BOOKINGS" styleClass="telemetry-label"/>
+                    <Label fx:id="lblStatBookings" text="..." styleClass="telemetry-value"/>
+                </VBox>
+                <VBox styleClass="telemetry-card" HBox.hgrow="ALWAYS">
+                    <Label text="GROSS REVENUE" styleClass="telemetry-label"/>
+                    <Label fx:id="lblStatRevenue" text="..." styleClass="telemetry-value-money"/>
+                </VBox>
+                <VBox styleClass="telemetry-card" HBox.hgrow="ALWAYS">
+                    <Label text="PROVISIONED USERS" styleClass="telemetry-label"/>
+                    <Label fx:id="lblStatUsers" text="..." styleClass="telemetry-value"/>
+                </VBox>
+            </HBox>
+        </VBox>
+        
+        <Separator opacity="0.5"/>
+        
+        <VBox spacing="12" VBox.vgrow="ALWAYS">
+            <Label text="System Submodules Management" styleClass="section-indicator-title"/>
+            <ScrollPane fitToWidth="true" styleClass="transparent-scroll" VBox.vgrow="ALWAYS">
+                <GridPane fx:id="gridOperations" hgap="20" vgap="20">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50" hgrow="SOMETIMES"/>
+                        <ColumnConstraints percentWidth="50" hgrow="SOMETIMES"/>
+                    </columnConstraints>
+                </GridPane>
+            </ScrollPane>
+        </VBox>
     </VBox>
 </HBox>
