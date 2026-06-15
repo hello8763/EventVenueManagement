@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="20" styleClass="main-container" stylesheets="@style.css" 
+      xmlns="http://javafx.com/javafx/8" 
+      xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="Controller.FXCustomerVenueController">
+    <padding>
+        <Insets top="30" right="40" bottom="30" left="40"/>
+    </padding>
+
+    <Label text="Available Venues" styleClass="header-label"/>
+    <Label text="Select a venue below to start your booking process." styleClass="sub-header-label"/>
+
+    <TableView fx:id="venueTable" VBox.vgrow="ALWAYS" styleClass="modern-table">
+        <columns>
+            <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="colName" text="Venue Name" prefWidth="200"/>
+            <TableColumn fx:id="colLocation" text="Location" prefWidth="150"/>
+            <TableColumn fx:id="colCapacity" text="Capacity" prefWidth="100"/>
+            <TableColumn fx:id="colRate" text="Hourly Rate ($)" prefWidth="120"/>
+            <TableColumn fx:id="colStatus" text="Status" prefWidth="100"/>
+        </columns>
+    </TableView>
+
+    <HBox alignment="CENTER_RIGHT">
+        <Button text="Book Selected Venue" fx:id="btnBook" styleClass="primary-button" onAction="#handleBookVenue"/>
+    </HBox>
+</VBox>

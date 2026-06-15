@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20" styleClass="main-container" stylesheets="@style.css"
+      xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="Controller.FXBookingManagementController">
+
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
+
+    <Label text="📋 Booking Management" styleClass="header-label"/>
+    <Label text="View and update your bookings" styleClass="sub-header-label"/>
+
+    <VBox spacing="15" styleClass="form-card">
+        <GridPane hgap="15" vgap="12">
+            <Label text="Booking ID" styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <TextField fx:id="txtBookingId" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+            <Label text="User ID" styleClass="form-label" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+            <TextField fx:id="txtUserId" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+            <Label text="Venue ID" styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <TextField fx:id="txtVenueId" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+            <Label text="Type ID" styleClass="form-label" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+            <TextField fx:id="txtTypeId" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+
+            <Label text="Event Date (YYYY-MM-DD)" styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <TextField fx:id="txtEventDate" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+            <Label text="Start Time (HH:MM:SS)" styleClass="form-label" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+            <TextField fx:id="txtStartTime" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+
+            <Label text="End Time (HH:MM:SS)" styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+            <TextField fx:id="txtEndTime" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+            <Label text="Total Price" styleClass="form-label" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+            <TextField fx:id="txtTotalPrice" GridPane.columnIndex="3" GridPane.rowIndex="3"/>
+
+            <Label text="Status" styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+            <TextField fx:id="txtStatus" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+            <Button text="🔍 Search" fx:id="btnSearch" styleClass="secondary-button" GridPane.columnIndex="3" GridPane.rowIndex="4"/>
+        </GridPane>
+
+        <HBox spacing="15" alignment="CENTER_RIGHT">
+            <Button text="✏️ Update" fx:id="btnUpdate" styleClass="primary-button"/>
+            <Button text="🔄 Refresh" fx:id="btnRefresh" styleClass="secondary-button"/>
+        </HBox>
+    </VBox>
+
+    <TableView fx:id="tvBookings" VBox.vgrow="ALWAYS" styleClass="modern-table">
+        <columns>
+            <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
+            <TableColumn fx:id="colUserId" text="User ID" prefWidth="70"/>
+            <TableColumn fx:id="colVenueId" text="Venue ID" prefWidth="70"/>
+            <TableColumn fx:id="colTypeId" text="Type ID" prefWidth="70"/>
+            <TableColumn fx:id="colEventDate" text="Event Date" prefWidth="100"/>
+            <TableColumn fx:id="colStartTime" text="Start Time" prefWidth="80"/>
+            <TableColumn fx:id="colEndTime" text="End Time" prefWidth="80"/>
+            <TableColumn fx:id="colTotalPrice" text="Total Price" prefWidth="100"/>
+            <TableColumn fx:id="colStatus" text="Status" prefWidth="100"/>
+        </columns>
+    </TableView>
+</VBox>

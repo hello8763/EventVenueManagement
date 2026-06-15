@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<HBox spacing="30" styleClass="main-container" stylesheets="@style.css"
+      xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="Controller.FXBookingCreateController">
+
+    <padding>
+        <Insets top="30" right="40" bottom="30" left="40"/>
+    </padding>
+
+    <!-- Left column: Venue card -->
+    <VBox spacing="15" styleClass="summary-card" prefWidth="350">
+        <Label text="🏛️ Venue Details" styleClass="section-header"/>
+        <Separator styleClass="card-separator"/>
+
+        <GridPane hgap="10" vgap="12">
+            <Label text="Name:" styleClass="field-title" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <Label fx:id="lblVenueName" text="—" styleClass="field-value-highlight" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+            <Label text="Location:" styleClass="field-title" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <Label fx:id="lblVenueLocation" text="—" styleClass="field-value" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+            <Label text="Capacity:" styleClass="field-title" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <Label fx:id="lblVenueCapacity" text="—" styleClass="field-value" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+            <Label text="Hourly Rate:" styleClass="field-title" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+            <Label fx:id="lblVenueRate" text="0.00 / hr" styleClass="field-value-highlight" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        </GridPane>
+    </VBox>
+
+    <!-- Right column: Booking form card -->
+    <VBox spacing="20" HBox.hgrow="ALWAYS">
+        <Label text="✍️ Complete Your Booking" styleClass="header-label"/>
+
+        <VBox spacing="20" styleClass="form-card">
+            <!-- Event Type & Date -->
+            <GridPane hgap="20" vgap="15">
+                <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2">
+                    <Label text="Event Type" styleClass="form-label"/>
+                    <ComboBox fx:id="cbEventType" maxWidth="Infinity" promptText="Select event type..."/>
+                </VBox>
+
+                <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2">
+                    <Label text="Event Date" styleClass="form-label"/>
+                    <DatePicker fx:id="dpEventDate" maxWidth="Infinity" promptText="YYYY-MM-DD"/>
+                </VBox>
+
+                <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                    <Label text="Start Time (HH:MM)" styleClass="form-label"/>
+                    <TextField fx:id="txtStartTime" promptText="14:00" styleClass="time-field"/>
+                </VBox>
+
+                <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <Label text="End Time (HH:MM)" styleClass="form-label"/>
+                    <TextField fx:id="txtEndTime" promptText="18:00" styleClass="time-field"/>
+                </VBox>
+            </GridPane>
+
+            <!-- Services selection -->
+            <VBox spacing="5">
+                <Label text="🎧 Additional Services (Ctrl+Click to select multiple)" styleClass="form-label"/>
+                <ListView fx:id="listServices" prefHeight="140" styleClass="service-list"/>
+            </VBox>
+
+            <!-- Total price and actions -->
+            <VBox spacing="10">
+                <Label text="💰 Total Price (USD)" styleClass="form-label"/>
+                <TextField fx:id="txtTotalPrice" editable="false" promptText="0.00" styleClass="total-field"/>
+
+                <HBox alignment="CENTER_RIGHT" spacing="15">
+                    <Button text="⟳ Calculate Total" fx:id="btnCalculate" styleClass="secondary-button"/>
+                    <Button text="✓ Confirm Booking" fx:id="btnConfirm" styleClass="primary-button"/>
+                </HBox>
+            </VBox>
+        </VBox>
+    </VBox>
+</HBox>

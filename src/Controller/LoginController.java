@@ -6,6 +6,11 @@ import Util.UserSession;
 import View.LoginView;
 import View.RegisterView;
 import View.Dashboard;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import javax.swing.*;
 
 public class LoginController {
@@ -44,8 +49,21 @@ public class LoginController {
             view.dispose();
             
             // Instantiates existing system dashboard now aware of the role
-            Dashboard mainApp = new Dashboard();
-mainApp.setVisible(true);;
+            // Dashboard mainApp = new Dashboard();
+            Platform.runLater(() -> {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Dashboard.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setTitle("Event Venue Management - Dashboard");
+        stage.setScene(new Scene(root, 850, 550));
+        stage.setResizable(false);
+        stage.show();
+    } catch (Exception ex) {
+        ex.printStackTrace();
+    }
+});
+// mainApp.setVisible(true);;
         } else {
             JOptionPane.showMessageDialog(view, "Invalid email, password, or account is disabled.", "Authentication Failed", JOptionPane.ERROR_MESSAGE);
         }

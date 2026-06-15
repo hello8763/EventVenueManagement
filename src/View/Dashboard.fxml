@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<HBox prefWidth="850" prefHeight="550" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FXDashboardController">
+    
+    <VBox prefWidth="250" styleClass="sidebar-container" spacing="25" alignment="TOP_CENTER">
+        <padding>
+            <Insets top="40" right="20" bottom="20" left="20"/>
+        </padding>
+        
+        <VBox alignment="CENTER" spacing="8" styleClass="profile-box">
+            <Label text="Welcome back," styleClass="sidebar-subtitle"/>
+            <Label fx:id="lblUserEmail" text="user@email.com" wrapText="true" alignment="CENTER" styleClass="sidebar-title"/>
+            <Label fx:id="lblUserRole" text="[ROLE]" styleClass="role-badge"/>
+        </VBox>
+        
+        <Region VBox.vgrow="ALWAYS"/>
+        
+        <Button text="Sign Out" onAction="#handleLogout" maxWidth="Infinity" styleClass="logout-button"/>
+    </VBox>
+
+    <VBox HBox.hgrow="ALWAYS" spacing="20" styleClass="workspace-container">
+        <padding>
+            <Insets top="30" right="30" bottom="30" left="30"/>
+        </padding>
+        
+        <Label text="System Operations Dashboard" styleClass="workspace-header"/>
+        <Separator/>
+        
+        <GridPane fx:id="gridOperations" hgap="20" vgap="20" VBox.vgrow="ALWAYS">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="50" hgrow="SOMETIMES"/>
+                <ColumnConstraints percentWidth="50" hgrow="SOMETIMES"/>
+            </columnConstraints>
+            </GridPane>
+    </VBox>
+</HBox>

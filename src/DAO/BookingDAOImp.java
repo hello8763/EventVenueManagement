@@ -167,4 +167,4 @@ public List<Booking> getBookingsByUserId(int userId) {
         return false; // Fail safe: if database errors, assume unavailable
     }
 } // End of class
-}
+
